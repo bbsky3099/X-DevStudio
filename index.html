@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张知行 · 定制开发 | 个人开发者接单</title>
+    <!-- 基础 SEO & 合规声明 -->
+    <meta name="description" content="独立开发者提供Web/小程序/桌面应用定制服务。签订正式合同，分阶段付款，源码交付。隐私政策与服务条款完善，合作安心。">
+    <meta name="author" content="张知行 (Zhang Zhixing)">
+    <!-- 采用系统字体保证简洁可读，无外部依赖，避免额外请求 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        /* 导航 */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #0f172a;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: #3b82f6;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+        /* 按钮 */
+        .btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: #3b82f6;
+            border: 1.5px solid #3b82f6;
+        }
+        .btn-outline:hover {
+            background-color: #eef2ff;
+        }
+        .btn:hover {
+            background-color: #2563eb;
+        }
+        /* 头部 */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+        .hero .highlight {
+            color: #3b82f6;
+            border-bottom: 3px solid #bfdbfe;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        /* 服务卡片 */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: #0f172a;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .service-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #eef2f6;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0,100,200,0.15);
+        }
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+        .service-card p {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+        /* 案例 */
+        .showcase {
+            background-color: #ffffff;
+            border-radius: 2rem;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+            border: 1px solid #e2e8f0;
+        }
+        .showcase-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .showcase-text {
+            flex: 1 1 300px;
+        }
+        .showcase-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .showcase-badge {
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.3rem 1rem;
+            border-radius: 9999px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        /* 联系方式区 (无表单, 仅mailto) */
+        .contact-section {
+            background: linear-gradient(145deg, #f1f5f9, #ffffff);
+            border-radius: 2rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem 0 1.5rem;
+        }
+        .contact-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .contact-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0 0;
+        }
+        .contact-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .email-link {
+            font-size: 1.2rem;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .email-link:hover {
+            color: #3b82f6;
+        }
+        .gh-link {
+            color: #24292e;
+        }
+        /* 底部合规链接 */
+        .footer {
+            border-top: 1px solid #e2e8f0;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-links a {
+            color: #475569;
+            text-decoration: none;
+            margin-left: 1.8rem;
+        }
+        .footer-links a:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+        .footer-links a:first-child {
+            margin-left: 0;
+        }
+        /* 文档徽章 */
+        .license-badge {
+            display: inline-block;
+            background-color: #e6f7e6;
+            color: #2e6b2e;
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-left: 0.5rem;
+        }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .nav-container { flex-direction: column; gap: 0.5rem; }
+            .nav-links { justify-content: center; gap: 1rem; }
+            .footer { flex-direction: column; gap: 1rem; text-align: center; }
+            .footer-links a { margin: 0 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏包含关键文档链接 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">🧑‍💻 张知行 <span>.dev</span></a>
+            <div class="nav-links">
+                <a href="#services">服务</a>
+                <a href="#showcase">案例</a>
+                <a href="#contact">联系</a>
+                <!-- 直接链接到仓库中的合规文档 (GitHub pages 或 raw) 当前使用相对路径 -->
+                <a href="PRIVACY_POLICY.md" target="_blank">隐私政策</a>
+                <a href="TERMS_OF_SERVICE.md" target="_blank">服务条款</a>
+                <a href="CONTRACT_TEMPLATE.md" target="_blank">合同模板</a>
+                <a href="https://github.com/zhangzhixing/custom-dev" target="_blank" class="btn-outline btn">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- 首屏宣传 -->
+        <section class="hero">
+            <h1>从想法到交付<span class="highlight"> · 定制开发</span></h1>
+            <p>独立承接 Web / 小程序 / 桌面应用，签订正式合同，分三期付款，源码完整交付。所有项目均遵守开源合规及隐私保护。</p>
+            <div class="cta-buttons">
+                <a href="mailto:zhangzhixing@dev.me?subject=项目询价%20-%20来自GitHub宣传页" class="btn">📧 发送邮件询价</a>
+                <a href="#services" class="btn-outline btn">↓ 浏览服务</a>
+            </div>
+            <!-- 许可证与合规快速提示 -->
+            <div style="font-size:0.9rem; color:#6c757d; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <span>📄 MIT 许可证</span>
+                <span>🔒 零表单收集 · 隐私友好</span>
+                <span>⚖️ 标准合同模板</span>
+            </div>
+        </section>
+
+        <!-- 服务项目 符合广告法真实描述 -->
+        <section id="services">
+            <h2 class="section-title">可承接的开发方向</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Web 全栈应用</h3>
+                    <p>React / Vue / Node.js 企业级后台、官网、电商原型。响应式，符合W3C标准。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>微信小程序 / H5</h3>
+                    <p>原生小程序或Uniapp，包含支付、定位、用户授权，遵守平台隐私要求。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🖥️</div>
+                    <h3>桌面工具 (Electron)</h3>
+                    <p>跨平台桌面工具，自动更新，系统集成，数据本地化存储。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🐍</div>
+                    <h3>Python 脚本/数据处理</h3>
+                    <p>自动化脚本、爬虫（合法授权）、数据分析及可视化。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例展示 / 作品集 确保所有素材均为自创或无版权风险 -->
+        <section id="showcase" class="showcase">
+            <h2 class="section-title" style="margin-top: 0;">近期项目（示意）</h2>
+            <div class="showcase-item">
+                <div class="showcase-text">
+                    <span class="showcase-badge">已完成 · 合同签订</span>
+                    <h3>智能排班系统 (SaaS)</h3>
+                    <p>为中小餐饮企业开发的排班与考勤工具。前端Vue3 + TypeScript，后端Node.js + MySQL。源码交付，客户拥有完整知识产权。项目分三期：预付款30%，验收60%，售后期10%。</p>
+                    <p style="margin-top: 0.8rem;">🔧 技术栈: Vue3, Pinia, Express, JWT, 腾讯云部署</p>
+                </div>
+                <div style="flex: 1 1 200px; background-color: #d9e2ef; border-radius: 1.5rem; height: 180px; display: flex; align-items: center; justify-content: center; color: #4b5563;">项目界面预览占位</div>
+            </div>
+            <!-- 第二个案例 -->
+            <div style="margin-top: 2.5rem;" class="showcase-item">
+                <div style="flex: 1 1 200px; background-color: #cbd5e1; border-radius: 1.5rem; height: 160px; display: flex; align-items: center; justify-content: center; color: #334155;">示意图标</div>
+                <div class="showcase-text">
+                    <span class="showcase-badge">进行中 · 二阶段</span>
+                    <h3>个人博客 & 内容分析工具</h3>
+                    <p>集成GitHub issues作为CMS，前台支持自定义主题，后台标签分析。使用Gatsby + Node。代码基于MIT许可证开源部分组件，客户私有部分闭源。明确许可证边界。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系区 - 无表单，仅提供mailto和社交，避免收集个人信息 -->
+        <section id="contact" class="contact-section">
+            <h2>📬 开启你的项目</h2>
+            <p style="max-width: 600px; margin: 0 auto; color:#475569;">所有合作均基于书面合同，明确交付范围、知识产权与付款节点。不使用网站表单收集信息，沟通通过邮件进行，确保数据最小化。</p>
+            <div class="contact-actions">
+                <div class="contact-card">
+                    <span>📧</span>
+                    <a href="mailto:zhangzhixing@dev.me?subject=定制开发咨询%20-%20来自GitHub项目页" class="email-link">zhangzhixing@dev.me</a>
+                </div>
+                <div class="contact-card">
+                    <span>🐙</span>
+                    <a href="https://github.com/zhangzhixing" target="_blank" class="email-link gh-link">/zhangzhixing</a>
+                </div>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.95rem;">⏱️ 通常24小时内回复。可约线上会议详谈。</p>
+        </section>
+
+        <!-- 底部版权及合规文件链接 -->
+        <footer class="footer">
+            <div>© 2025 张知行 · 个人开发者。项目遵循 <a href="LICENSE" target="_blank" style="color:#3b82f6;">MIT 许可证</a><span class="license-badge">开源代码</span></div>
+            <div class="footer-links">
+                <a href="PRIVACY_POLICY.md" target="_blank">隐私政策</a>
+                <a href="TERMS_OF_SERVICE.md" target="_blank">服务条款</a>
+                <a href="CONTRACT_TEMPLATE.md" target="_blank">合同模板 (DOC)</a>
+                <a href="README.md" target="_blank">项目说明</a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- 简单的交互提示：mailto 不用js；但可加一个控制台礼貌信息，无数据收集 -->
+    <script>
+        (function() {
+            // 仅用于展示合规精神，不设置cookies，不追踪用户。
+            console.log("🔒 本网站无追踪器，不收集个人信息。沟通请使用邮件: zhangzhixing@dev.me");
+            // 任何外部链接均采用安全策略
+        })();
+    </script>
+</body>
+</html>
