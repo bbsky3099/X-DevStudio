@@ -358,6 +358,98 @@
             padding: 1rem;
             border-radius: 0.8rem;
         }
+
+        /* ========== 新增特效 & 广告位样式 ========== */
+        /* 鼠标轨迹 canvas */
+        #trail-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        /* 点击特效容器 */
+        #click-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        .click-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.5);
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.6s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes ripple {
+            to {
+                transform: translate(-50%, -50%) scale(8);
+                opacity: 0;
+            }
+        }
+        /* 动态粒子背景 (不影响交互) */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        /* 两侧广告栏 */
+        .ad-sidebar {
+            position: fixed;
+            top: 80px;
+            bottom: 20px;
+            width: 200px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            padding: 10px;
+            background: transparent;
+            pointer-events: auto;
+        }
+        .ad-sidebar.left {
+            left: 10px;
+        }
+        .ad-sidebar.right {
+            right: 10px;
+        }
+        .ad-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: #1e293b;
+            font-size: 0.9rem;
+            word-break: break-word;
+            cursor: default;
+        }
+        .ad-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        /* 移动端隐藏广告栏 */
+        @media (max-width: 1000px) {
+            .ad-sidebar {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -377,6 +469,15 @@
             </div>
         </div>
     </nav>
+
+    <!-- 两侧广告栏容器 -->
+    <div class="ad-sidebar left" id="left-ads"></div>
+    <div class="ad-sidebar right" id="right-ads"></div>
+
+    <!-- 特效画布 -->
+    <canvas id="trail-canvas"></canvas>
+    <canvas id="particle-canvas"></canvas>
+    <div id="click-effects"></div>
 
     <main class="container">
         <!-- 首屏宣传 -->
@@ -521,7 +622,7 @@
                 }
             }
 
-            // 简单的转义函数，防止XSS（虽然内容是我们自己的，但安全起见）
+            // 简单的转义函数，防止XSS
             function escapeHtml(unsafe) {
                 return unsafe.replace(/[&<>"]/g, function(m) {
                     if(m === '&') return '&amp;';
@@ -558,6 +659,160 @@
 
             // 控制台友好提示
             console.log("🔒 本网站无追踪器，不收集个人信息。沟通请使用邮件: sky2099a@163.com");
+
+            // ---------- 新增特效：鼠标轨迹 (canvas粒子) ----------
+            const trailCanvas = document.getElementById('trail-canvas');
+            const ctx = trailCanvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                trailCanvas.width = width;
+                trailCanvas.height = height;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            // 鼠标移动时添加粒子
+            let mouseX = 0, mouseY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                // 每移动一次添加2个粒子
+                for (let i = 0; i < 2; i++) {
+                    particles.push({
+                        x: mouseX + (Math.random() - 0.5) * 10,
+                        y: mouseY + (Math.random() - 0.5) * 10,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        life: 1.0, // 透明度
+                        size: 4 + Math.random() * 4
+                    });
+                }
+            });
+
+            // 动画更新
+            function animateTrail() {
+                ctx.clearRect(0, 0, width, height);
+                // 更新粒子
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= 0.01; // 逐渐消失
+                    if (p.life <= 0) {
+                        particles.splice(i, 1);
+                        continue;
+                    }
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail();
+
+            // ---------- 鼠标点击特效 ----------
+            const clickContainer = document.getElementById('click-effects');
+            document.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                ripple.className = 'click-ripple';
+                ripple.style.left = e.clientX + 'px';
+                ripple.style.top = e.clientY + 'px';
+                ripple.style.width = '30px';
+                ripple.style.height = '30px';
+                ripple.style.background = 'rgba(59, 130, 246, 0.6)';
+                clickContainer.appendChild(ripple);
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+
+            // ---------- 背景粒子特效 (优雅动态) ----------
+            const particleCanvas = document.getElementById('particle-canvas');
+            const pCtx = particleCanvas.getContext('2d');
+            let pWidth, pHeight;
+            let bgParticles = [];
+
+            function resizeParticleCanvas() {
+                pWidth = window.innerWidth;
+                pHeight = window.innerHeight;
+                particleCanvas.width = pWidth;
+                particleCanvas.height = pHeight;
+                initBgParticles();
+            }
+            window.addEventListener('resize', resizeParticleCanvas);
+
+            function initBgParticles() {
+                bgParticles = [];
+                const count = Math.floor(pWidth * pHeight / 8000);
+                for (let i = 0; i < count; i++) {
+                    bgParticles.push({
+                        x: Math.random() * pWidth,
+                        y: Math.random() * pHeight,
+                        radius: Math.random() * 2 + 1,
+                        speedX: (Math.random() - 0.5) * 0.3,
+                        speedY: (Math.random() - 0.5) * 0.3,
+                        color: `rgba(59, 130, 246, ${Math.random() * 0.4 + 0.1})`
+                    });
+                }
+            }
+
+            function animateBgParticles() {
+                pCtx.clearRect(0, 0, pWidth, pHeight);
+                for (let p of bgParticles) {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    if (p.x < 0) p.x = pWidth;
+                    if (p.x > pWidth) p.x = 0;
+                    if (p.y < 0) p.y = pHeight;
+                    if (p.y > pHeight) p.y = 0;
+                    pCtx.beginPath();
+                    pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    pCtx.fillStyle = p.color;
+                    pCtx.fill();
+                }
+                requestAnimationFrame(animateBgParticles);
+            }
+            resizeParticleCanvas();
+            animateBgParticles();
+
+            // ---------- 加载广告位内容 ----------
+            async function loadAds() {
+                try {
+                    const response = await fetch('ads.md');
+                    if (!response.ok) {
+                        console.warn('未找到 ads.md 文件，广告位将不显示内容。');
+                        return;
+                    }
+                    const text = await response.text();
+                    // 按行分割，过滤空行
+                    const lines = text.split('\n').map(line => line.trim()).filter(line => line !== '');
+                    const leftAd = document.getElementById('left-ads');
+                    const rightAd = document.getElementById('right-ads');
+                    // 清空原有内容（如果有）
+                    leftAd.innerHTML = '';
+                    rightAd.innerHTML = '';
+                    // 轮流放入左右两侧
+                    lines.forEach((line, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'ad-card';
+                        card.textContent = line; // 纯文本，若想支持简单html可改为innerHTML但需注意XSS
+                        if (index % 2 === 0) {
+                            leftAd.appendChild(card);
+                        } else {
+                            rightAd.appendChild(card);
+                        }
+                    });
+                } catch (error) {
+                    console.warn('加载广告失败:', error);
+                }
+            }
+            loadAds();
         })();
     </script>
 </body>
