@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>张知行 · 定制开发 | 个人开发者接单</title>
-    <!-- 基础 SEO & 合规声明 -->
     <meta name="description" content="独立开发者提供Web/小程序/桌面应用定制服务。签订正式合同，分阶段付款，源码交付。隐私政策与服务条款完善，合作安心。">
     <meta name="author" content="张知行 (Zhang Zhixing)">
-    <!-- 采用系统字体保证简洁可读，无外部依赖，避免额外请求 -->
     <style>
+        /* ========== 原有样式保持不变 ========== */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +25,6 @@
             margin: 0 auto;
             padding: 2rem 1.5rem;
         }
-        /* 导航 */
         .navbar {
             background-color: #ffffff;
             border-bottom: 1px solid #e2e8f0;
@@ -69,7 +67,6 @@
         .nav-links a:hover {
             color: #3b82f6;
         }
-        /* 按钮 */
         .btn {
             display: inline-block;
             background-color: #3b82f6;
@@ -93,7 +90,6 @@
         .btn:hover {
             background-color: #2563eb;
         }
-        /* 头部 */
         .hero {
             text-align: center;
             padding: 3rem 1rem 2rem;
@@ -123,7 +119,6 @@
             flex-wrap: wrap;
             margin-bottom: 2rem;
         }
-        /* 服务卡片 */
         .section-title {
             font-size: 2rem;
             font-weight: 600;
@@ -161,7 +156,6 @@
             color: #475569;
             font-size: 0.95rem;
         }
-        /* 案例 */
         .showcase {
             background-color: #ffffff;
             border-radius: 2rem;
@@ -193,7 +187,6 @@
             font-weight: 500;
             margin-bottom: 1rem;
         }
-        /* 联系方式区 (无表单, 仅mailto) */
         .contact-section {
             background: linear-gradient(145deg, #f1f5f9, #ffffff);
             border-radius: 2rem;
@@ -237,7 +230,6 @@
         .gh-link {
             color: #24292e;
         }
-        /* 底部合规链接 */
         .footer {
             border-top: 1px solid #e2e8f0;
             margin-top: 3rem;
@@ -253,6 +245,7 @@
             color: #475569;
             text-decoration: none;
             margin-left: 1.8rem;
+            cursor: pointer;
         }
         .footer-links a:hover {
             color: #3b82f6;
@@ -261,7 +254,6 @@
         .footer-links a:first-child {
             margin-left: 0;
         }
-        /* 文档徽章 */
         .license-badge {
             display: inline-block;
             background-color: #e6f7e6;
@@ -279,10 +271,97 @@
             .footer { flex-direction: column; gap: 1rem; text-align: center; }
             .footer-links a { margin: 0 0.7rem; }
         }
+
+        /* ========== 模态框样式 ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            border-radius: 1.5rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-header {
+            padding: 1.2rem 1.8rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8fafc;
+        }
+        .modal-header h3 {
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 1.3rem;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0 0.5rem;
+        }
+        .modal-close:hover {
+            color: #1e293b;
+        }
+        .modal-body {
+            padding: 1.8rem;
+            overflow-y: auto;
+            background-color: #ffffff;
+            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .modal-body pre {
+            background-color: #f1f5f9;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            overflow-x: auto;
+            font-family: inherit;
+            white-space: pre-wrap;
+            margin: 0;
+        }
+        .error-message {
+            color: #b91c1c;
+            background-color: #fee2e2;
+            padding: 1rem;
+            border-radius: 0.8rem;
+        }
     </style>
 </head>
 <body>
-    <!-- 导航栏包含关键文档链接 -->
+    <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">🧑‍💻 张知行 <span>.dev</span></a>
@@ -290,10 +369,10 @@
                 <a href="#services">服务</a>
                 <a href="#showcase">案例</a>
                 <a href="#contact">联系</a>
-                <!-- 直接链接到仓库中的合规文档 (GitHub pages 或 raw) 当前使用相对路径 -->
-                <a href="PRIVACY_POLICY.md" target="_blank">隐私政策</a>
-                <a href="TERMS_OF_SERVICE.md" target="_blank">服务条款</a>
-                <a href="CONTRACT_TEMPLATE.md" target="_blank">合同模板</a>
+                <!-- 使用 data-doc 标识文档类型 -->
+                <a href="#privacy" class="doc-link" data-doc="privacy">隐私政策</a>
+                <a href="#terms" class="doc-link" data-doc="terms">服务条款</a>
+                <a href="#contract" class="doc-link" data-doc="contract">合同模板</a>
                 <a href="https://github.com/zhangzhixing/custom-dev" target="_blank" class="btn-outline btn">GitHub</a>
             </div>
         </div>
@@ -308,7 +387,6 @@
                 <a href="mailto:zhangzhixing@dev.me?subject=项目询价%20-%20来自GitHub宣传页" class="btn">📧 发送邮件询价</a>
                 <a href="#services" class="btn-outline btn">↓ 浏览服务</a>
             </div>
-            <!-- 许可证与合规快速提示 -->
             <div style="font-size:0.9rem; color:#6c757d; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <span>📄 MIT 许可证</span>
                 <span>🔒 零表单收集 · 隐私友好</span>
@@ -316,34 +394,18 @@
             </div>
         </section>
 
-        <!-- 服务项目 符合广告法真实描述 -->
+        <!-- 服务项目 -->
         <section id="services">
             <h2 class="section-title">可承接的开发方向</h2>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">⚙️</div>
-                    <h3>Web 全栈应用</h3>
-                    <p>React / Vue / Node.js 企业级后台、官网、电商原型。响应式，符合W3C标准。</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📱</div>
-                    <h3>微信小程序 / H5</h3>
-                    <p>原生小程序或Uniapp，包含支付、定位、用户授权，遵守平台隐私要求。</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🖥️</div>
-                    <h3>桌面工具 (Electron)</h3>
-                    <p>跨平台桌面工具，自动更新，系统集成，数据本地化存储。</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🐍</div>
-                    <h3>Python 脚本/数据处理</h3>
-                    <p>自动化脚本、爬虫（合法授权）、数据分析及可视化。</p>
-                </div>
+                <div class="service-card"><div class="service-icon">⚙️</div><h3>Web 全栈应用</h3><p>React / Vue / Node.js 企业级后台、官网、电商原型。响应式，符合W3C标准。</p></div>
+                <div class="service-card"><div class="service-icon">📱</div><h3>微信小程序 / H5</h3><p>原生小程序或Uniapp，包含支付、定位、用户授权，遵守平台隐私要求。</p></div>
+                <div class="service-card"><div class="service-icon">🖥️</div><h3>桌面工具 (Electron)</h3><p>跨平台桌面工具，自动更新，系统集成，数据本地化存储。</p></div>
+                <div class="service-card"><div class="service-icon">🐍</div><h3>Python 脚本/数据处理</h3><p>自动化脚本、爬虫（合法授权）、数据分析及可视化。</p></div>
             </div>
         </section>
 
-        <!-- 案例展示 / 作品集 确保所有素材均为自创或无版权风险 -->
+        <!-- 案例展示 -->
         <section id="showcase" class="showcase">
             <h2 class="section-title" style="margin-top: 0;">近期项目（示意）</h2>
             <div class="showcase-item">
@@ -355,52 +417,147 @@
                 </div>
                 <div style="flex: 1 1 200px; background-color: #d9e2ef; border-radius: 1.5rem; height: 180px; display: flex; align-items: center; justify-content: center; color: #4b5563;">项目界面预览占位</div>
             </div>
-            <!-- 第二个案例 -->
             <div style="margin-top: 2.5rem;" class="showcase-item">
                 <div style="flex: 1 1 200px; background-color: #cbd5e1; border-radius: 1.5rem; height: 160px; display: flex; align-items: center; justify-content: center; color: #334155;">示意图标</div>
                 <div class="showcase-text">
                     <span class="showcase-badge">进行中 · 二阶段</span>
                     <h3>个人博客 & 内容分析工具</h3>
-                    <p>集成GitHub issues作为CMS，前台支持自定义主题，后台标签分析。使用Gatsby + Node。代码基于MIT许可证开源部分组件，客户私有部分闭源。明确许可证边界。</p>
+                    <p>集成GitHub issues作为CMS，前台支持自定义主题，后台标签分析。使用Gatsby + Node。代码基于MIT许可证开源部分组件，客户私有部分闭包。明确许可证边界。</p>
                 </div>
             </div>
         </section>
 
-        <!-- 联系区 - 无表单，仅提供mailto和社交，避免收集个人信息 -->
+        <!-- 联系区 -->
         <section id="contact" class="contact-section">
             <h2>📬 开启你的项目</h2>
             <p style="max-width: 600px; margin: 0 auto; color:#475569;">所有合作均基于书面合同，明确交付范围、知识产权与付款节点。不使用网站表单收集信息，沟通通过邮件进行，确保数据最小化。</p>
             <div class="contact-actions">
-                <div class="contact-card">
-                    <span>📧</span>
-                    <a href="mailto:zhangzhixing@dev.me?subject=定制开发咨询%20-%20来自GitHub项目页" class="email-link">zhangzhixing@dev.me</a>
-                </div>
-                <div class="contact-card">
-                    <span>🐙</span>
-                    <a href="https://github.com/zhangzhixing" target="_blank" class="email-link gh-link">/zhangzhixing</a>
-                </div>
+                <div class="contact-card"><span>📧</span><a href="mailto:zhangzhixing@dev.me?subject=定制开发咨询%20-%20来自GitHub项目页" class="email-link">zhangzhixing@dev.me</a></div>
+                <div class="contact-card"><span>🐙</span><a href="https://github.com/zhangzhixing" target="_blank" class="email-link gh-link">/zhangzhixing</a></div>
             </div>
             <p style="margin-top: 1.5rem; font-size: 0.95rem;">⏱️ 通常24小时内回复。可约线上会议详谈。</p>
         </section>
 
-        <!-- 底部版权及合规文件链接 -->
+        <!-- 底部合规链接 -->
         <footer class="footer">
-            <div>© 2025 张知行 · 个人开发者。项目遵循 <a href="LICENSE" target="_blank" style="color:#3b82f6;">MIT 许可证</a><span class="license-badge">开源代码</span></div>
+            <div>© 2025 张知行 · 个人开发者。项目遵循 <a href="#license" class="doc-link" data-doc="license">MIT 许可证</a><span class="license-badge">开源代码</span></div>
             <div class="footer-links">
-                <a href="PRIVACY_POLICY.md" target="_blank">隐私政策</a>
-                <a href="TERMS_OF_SERVICE.md" target="_blank">服务条款</a>
-                <a href="CONTRACT_TEMPLATE.md" target="_blank">合同模板 (DOC)</a>
-                <a href="README.md" target="_blank">项目说明</a>
+                <a href="#privacy" class="doc-link" data-doc="privacy">隐私政策</a>
+                <a href="#terms" class="doc-link" data-doc="terms">服务条款</a>
+                <a href="#contract" class="doc-link" data-doc="contract">合同模板 (DOC)</a>
+                <a href="#readme" class="doc-link" data-doc="readme">项目说明</a>
             </div>
         </footer>
     </main>
 
-    <!-- 简单的交互提示：mailto 不用js；但可加一个控制台礼貌信息，无数据收集 -->
+    <!-- 模态框 -->
+    <div class="modal-overlay" id="docModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">文档标题</h3>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 动态加载的内容将放在这里 -->
+            </div>
+        </div>
+    </div>
+
     <script>
         (function() {
-            // 仅用于展示合规精神，不设置cookies，不追踪用户。
+            // 文档文件名映射 (data-doc 属性值 -> 实际 Markdown 文件)
+            const docFiles = {
+                license: 'LICENSE.md',
+                privacy: 'PRIVACY_POLICY.md',
+                terms: 'TERMS_OF_SERVICE.md',
+                contract: 'CONTRACT_TEMPLATE.md',
+                readme: 'README.md'      // 如果不存在，会显示404错误
+            };
+
+            // 友好标题映射
+            const docTitles = {
+                license: 'MIT 许可证',
+                privacy: '隐私政策',
+                terms: '服务条款',
+                contract: '合同模板 (DOC)',
+                readme: '项目说明'
+            };
+
+            const modal = document.getElementById('docModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const closeBtn = document.getElementById('modalCloseBtn');
+
+            // 关闭模态框
+            function closeModal() {
+                modal.classList.remove('active');
+            }
+
+            // 打开模态框并加载文档
+            async function openModal(docKey) {
+                // 设置标题
+                modalTitle.textContent = docTitles[docKey] || '文档';
+                // 显示加载中
+                modalBody.innerHTML = '<pre>加载中……</pre>';
+                modal.classList.add('active');
+
+                // 获取文件名
+                const fileName = docFiles[docKey];
+                if (!fileName) {
+                    modalBody.innerHTML = '<pre class="error-message">错误：未找到对应的文档。</pre>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(fileName);
+                    if (!response.ok) {
+                        throw new Error(`无法加载文件 (HTTP ${response.status})`);
+                    }
+                    const text = await response.text();
+                    // 将内容放入 <pre> 中显示原始 Markdown
+                    modalBody.innerHTML = `<pre>${escapeHtml(text)}</pre>`;
+                } catch (error) {
+                    modalBody.innerHTML = `<pre class="error-message">加载失败：${error.message}\n请确认文件 ${fileName} 是否存在于项目根目录。</pre>`;
+                }
+            }
+
+            // 简单的转义函数，防止XSS（虽然内容是我们自己的，但安全起见）
+            function escapeHtml(unsafe) {
+                return unsafe.replace(/[&<>"]/g, function(m) {
+                    if(m === '&') return '&amp;';
+                    if(m === '<') return '&lt;';
+                    if(m === '>') return '&gt;';
+                    if(m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            // 为所有 .doc-link 绑定点击事件
+            document.querySelectorAll('.doc-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();  // 阻止锚点跳转
+                    const doc = link.getAttribute('data-doc');
+                    if (doc) {
+                        openModal(doc);
+                    }
+                });
+            });
+
+            // 关闭按钮
+            closeBtn.addEventListener('click', closeModal);
+            // 点击背景关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            // ESC 关闭
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // 控制台友好提示
             console.log("🔒 本网站无追踪器，不收集个人信息。沟通请使用邮件: zhangzhixing@dev.me");
-            // 任何外部链接均采用安全策略
         })();
     </script>
 </body>
