@@ -660,11 +660,17 @@
             // 控制台友好提示
             console.log("🔒 本网站无追踪器，不收集个人信息。沟通请使用邮件: sky2099a@163.com");
 
-            // ---------- 新增特效：鼠标轨迹 (canvas粒子) ----------
+            // ---------- 鼠标移动特效：三种科技感模式随机切换 ----------
             const trailCanvas = document.getElementById('trail-canvas');
             const ctx = trailCanvas.getContext('2d');
             let width, height;
             let particles = [];
+
+            // 特效模式: 0-粒子连线(蓝), 1-流光线条(紫), 2-闪烁星尘(彩色)
+            let effectMode = 0;
+            const modeNames = ['粒子连线', '流光线条', '闪烁星尘'];
+            let lastSwitch = performance.now();
+            const switchInterval = 8000; // 8秒切换一次
 
             function resizeCanvas() {
                 width = window.innerWidth;
@@ -680,41 +686,131 @@
             window.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-                // 每移动一次添加2个粒子
+                // 限制粒子总数，避免过多
+                if (particles.length > 80) return;
+                // 根据当前模式生成粒子属性
                 for (let i = 0; i < 2; i++) {
+                    let color, size, speedFactor;
+                    const baseSpeed = 0.3;
+                    if (effectMode === 0) { // 粒子连线模式：蓝色系
+                        color = `rgba(30, 144, 255, ${0.6 + Math.random()*0.4})`; // 道奇蓝
+                        size = 4 + Math.random() * 6;
+                        speedFactor = 1;
+                    } else if (effectMode === 1) { // 流光线条模式：紫色系
+                        color = `rgba(138, 43, 226, ${0.7 + Math.random()*0.3})`; // 蓝紫色
+                        size = 5 + Math.random() * 8;
+                        speedFactor = 1.5; // 速度稍快，更有流动性
+                    } else { // 闪烁星尘模式：多彩
+                        const hue = Math.random() * 360;
+                        color = `hsla(${hue}, 80%, 60%, ${0.8})`;
+                        size = 3 + Math.random() * 10;
+                        speedFactor = 0.8;
+                    }
                     particles.push({
-                        x: mouseX + (Math.random() - 0.5) * 10,
-                        y: mouseY + (Math.random() - 0.5) * 10,
-                        vx: (Math.random() - 0.5) * 0.5,
-                        vy: (Math.random() - 0.5) * 0.5,
-                        life: 1.0, // 透明度
-                        size: 4 + Math.random() * 4
+                        x: mouseX + (Math.random() - 0.5) * 30,
+                        y: mouseY + (Math.random() - 0.5) * 30,
+                        vx: (Math.random() - 0.5) * speedFactor,
+                        vy: (Math.random() - 0.5) * speedFactor,
+                        life: 1.0,
+                        size: size,
+                        color: color,
+                        mode: effectMode // 记录生成时的模式，便于绘制时特殊处理（可选）
                     });
                 }
             });
 
             // 动画更新
-            function animateTrail() {
+            function animateTrail(now) {
+                // 检查是否需要切换模式
+                if (now - lastSwitch > switchInterval) {
+                    effectMode = Math.floor(Math.random() * 3); // 0,1,2
+                    console.log(`✨ 特效模式切换为: ${modeNames[effectMode]}`);
+                    lastSwitch = now;
+                    // 切换模式时让现有粒子快速淡出（可选）
+                    for (let p of particles) {
+                        p.life *= 0.5; // 加速消失，让新效果更快呈现
+                    }
+                }
+
                 ctx.clearRect(0, 0, width, height);
-                // 更新粒子
+                // 设置阴影光晕，增强科技感
+                ctx.shadowColor = '#3b82f6';
+                ctx.shadowBlur = 10;
+
+                // 更新和绘制粒子
                 for (let i = particles.length - 1; i >= 0; i--) {
                     const p = particles[i];
                     p.x += p.vx;
                     p.y += p.vy;
-                    p.life -= 0.01; // 逐渐消失
+                    p.life -= 0.005; // 逐渐消失
                     if (p.life <= 0) {
                         particles.splice(i, 1);
                         continue;
                     }
+
+                    // 根据当前模式调整绘制样式（动态适应新模式）
+                    let drawColor = p.color;
+                    if (effectMode === 0) {
+                        // 模式0：蓝色调，可以稍微统一
+                        ctx.shadowColor = '#1e90ff';
+                    } else if (effectMode === 1) {
+                        ctx.shadowColor = '#8a2be2';
+                    } else {
+                        ctx.shadowColor = '#ff69b4'; // 粉色阴影，配合彩色
+                    }
+
                     ctx.globalAlpha = p.life;
-                    ctx.fillStyle = '#3b82f6';
+                    ctx.fillStyle = p.color;
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
                     ctx.fill();
+
+                    // 额外绘制效果：模式1（流光线条）给粒子加上彗尾（小点连线）
+                    if (effectMode === 1) {
+                        // 简单模拟：画一条从前一帧到当前位置的线，但没有记录历史，改用粒子速度方向画短线
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p.x - p.vx * 5, p.y - p.vy * 5);
+                        ctx.strokeStyle = p.color;
+                        ctx.lineWidth = 2 * p.life;
+                        ctx.stroke();
+                    }
+
+                    // 模式2（闪烁星尘）额外绘制随机小点闪烁
+                    if (effectMode === 2) {
+                        if (Math.random() > 0.8) {
+                            ctx.fillStyle = 'white';
+                            ctx.globalAlpha = p.life * 0.8;
+                            ctx.beginPath();
+                            ctx.arc(p.x + (Math.random()-0.5)*10, p.y + (Math.random()-0.5)*10, 2, 0, 2*Math.PI);
+                            ctx.fill();
+                        }
+                    }
                 }
+
+                // 模式0额外绘制粒子之间的连线（科技感网状）
+                if (effectMode === 0) {
+                    ctx.strokeStyle = 'rgba(100, 180, 255, 0.3)';
+                    ctx.lineWidth = 1;
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const dist = Math.sqrt(dx*dx + dy*dy);
+                            if (dist < 80) {
+                                ctx.globalAlpha = (1 - dist/80) * 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
                 requestAnimationFrame(animateTrail);
             }
-            animateTrail();
+            requestAnimationFrame(animateTrail);
 
             // ---------- 鼠标点击特效 ----------
             const clickContainer = document.getElementById('click-effects');
@@ -801,7 +897,7 @@
                     lines.forEach((line, index) => {
                         const card = document.createElement('div');
                         card.className = 'ad-card';
-                        card.textContent = line; // 纯文本，若想支持简单html可改为innerHTML但需注意XSS
+                        card.textContent = line;
                         if (index % 2 === 0) {
                             leftAd.appendChild(card);
                         } else {
