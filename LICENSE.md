@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 张知行 (Zhang Zhixing)
+Copyright (c) 2025 智远创意|X-DevStudio
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
