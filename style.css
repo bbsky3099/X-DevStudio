@@ -660,6 +660,9 @@ body:hover .cursor-outline.hovered {
     position: relative;
     overflow: hidden;
     animation: cardFadeIn 0.5s ease-out;
+    color: hsla(var(--card-hue), 80%, 75%, 1);
+    text-shadow: 0 0 5px hsla(var(--card-hue), 80%, 60%, 0.3);
+    transition: all 0.3s, text-shadow 0.3s, color 0.3s;
 }
 
 .ad-card::after {
@@ -679,6 +682,8 @@ body:hover .cursor-outline.hovered {
     border-color: hsla(var(--card-hue), 80%, 70%, 0.8);
     box-shadow: 0 0 30px hsla(var(--card-hue), 80%, 70%, 0.5);
     transform: translateX(5px);
+    color: hsla(var(--card-hue), 80%, 85%, 1);
+    text-shadow: 0 0 12px hsla(var(--card-hue), 80%, 70%, 0.8);
 }
 
 .ad-card:hover::after {
