@@ -3,474 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智远创意 · 定制开发 | 个人开发者接单</title>
+    <title>智远创意 · 未来科技 | 定制开发</title>
     <meta name="description" content="独立开发者提供Web/小程序/桌面应用定制服务。签订正式合同，分阶段付款，源码交付。隐私政策与服务条款完善，合作安心。">
     <meta name="author" content="智远创意 (X-DevStudio)">
-    <style>
-        /* ========== 原有样式保持不变 ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f9fafc;
-            color: #1e293b;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-        .navbar {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 0.8rem 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .logo {
-            font-weight: 600;
-            font-size: 1.5rem;
-            color: #0f172a;
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-        .logo span {
-            color: #3b82f6;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #334155;
-            font-weight: 500;
-            transition: color 0.2s;
-            font-size: 1rem;
-        }
-        .nav-links a:hover {
-            color: #3b82f6;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #3b82f6;
-            color: white;
-            padding: 0.6rem 1.4rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background-color 0.2s, transform 0.1s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-outline {
-            background-color: transparent;
-            color: #3b82f6;
-            border: 1.5px solid #3b82f6;
-        }
-        .btn-outline:hover {
-            background-color: #eef2ff;
-        }
-        .btn:hover {
-            background-color: #2563eb;
-        }
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem 2rem;
-        }
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #0f172a;
-            line-height: 1.2;
-            max-width: 800px;
-            margin: 0 auto 1rem;
-        }
-        .hero .highlight {
-            color: #3b82f6;
-            border-bottom: 3px solid #bfdbfe;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #475569;
-            max-width: 650px;
-            margin: 0 auto 2rem;
-        }
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-        .section-title {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 2.5rem;
-            text-align: center;
-            color: #0f172a;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-        .service-card {
-            background: white;
-            padding: 2rem 1.5rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            border: 1px solid #eef2f6;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px rgba(0,100,200,0.15);
-        }
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-        }
-        .service-card p {
-            color: #475569;
-            font-size: 0.95rem;
-        }
-        .showcase {
-            background-color: #ffffff;
-            border-radius: 2rem;
-            padding: 2.5rem 2rem;
-            margin: 2rem 0;
-            border: 1px solid #e2e8f0;
-        }
-        .showcase-item {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: center;
-            justify-content: center;
-        }
-        .showcase-text {
-            flex: 1 1 300px;
-        }
-        .showcase-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-        .showcase-badge {
-            background-color: #dbeafe;
-            color: #1e40af;
-            padding: 0.3rem 1rem;
-            border-radius: 9999px;
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-        .contact-section {
-            background: linear-gradient(145deg, #f1f5f9, #ffffff);
-            border-radius: 2rem;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin: 3rem 0 1.5rem;
-        }
-        .contact-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .contact-actions {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0 0;
-        }
-        .contact-card {
-            background: white;
-            border-radius: 1.2rem;
-            padding: 1.2rem 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-            border: 1px solid #e2e8f0;
-        }
-        .email-link {
-            font-size: 1.2rem;
-            color: #0f172a;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .email-link:hover {
-            color: #3b82f6;
-        }
-        .gh-link {
-            color: #24292e;
-        }
-        .footer {
-            border-top: 1px solid #e2e8f0;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            font-size: 0.9rem;
-            color: #64748b;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .footer-links a {
-            color: #475569;
-            text-decoration: none;
-            margin-left: 1.8rem;
-            cursor: pointer;
-        }
-        .footer-links a:hover {
-            color: #3b82f6;
-            text-decoration: underline;
-        }
-        .footer-links a:first-child {
-            margin-left: 0;
-        }
-        .license-badge {
-            display: inline-block;
-            background-color: #e6f7e6;
-            color: #2e6b2e;
-            padding: 0.2rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 400;
-            margin-left: 0.5rem;
-        }
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 2rem; }
-            .nav-container { flex-direction: column; gap: 0.5rem; }
-            .nav-links { justify-content: center; gap: 1rem; }
-            .footer { flex-direction: column; gap: 1rem; text-align: center; }
-            .footer-links a { margin: 0 0.7rem; }
-        }
-
-        /* ========== 模态框样式 ========== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background-color: #ffffff;
-            width: 90%;
-            max-width: 800px;
-            max-height: 85vh;
-            border-radius: 1.5rem;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transform: scale(0.95);
-            transition: transform 0.2s ease;
-        }
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-        .modal-header {
-            padding: 1.2rem 1.8rem;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8fafc;
-        }
-        .modal-header h3 {
-            font-weight: 600;
-            color: #0f172a;
-            font-size: 1.3rem;
-        }
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            line-height: 1;
-            cursor: pointer;
-            color: #64748b;
-            padding: 0 0.5rem;
-        }
-        .modal-close:hover {
-            color: #1e293b;
-        }
-        .modal-body {
-            padding: 1.8rem;
-            overflow-y: auto;
-            background-color: #ffffff;
-            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        .modal-body pre {
-            background-color: #f1f5f9;
-            padding: 1rem;
-            border-radius: 0.8rem;
-            overflow-x: auto;
-            font-family: inherit;
-            white-space: pre-wrap;
-            margin: 0;
-        }
-        .error-message {
-            color: #b91c1c;
-            background-color: #fee2e2;
-            padding: 1rem;
-            border-radius: 0.8rem;
-        }
-
-        /* ========== 新增特效 & 广告位样式 ========== */
-        /* 鼠标轨迹 canvas */
-        #trail-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-        /* 点击特效容器 */
-        #click-effects {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10000;
-        }
-        .click-ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.5);
-            transform: translate(-50%, -50%) scale(0);
-            animation: ripple 0.6s ease-out forwards;
-            pointer-events: none;
-        }
-        @keyframes ripple {
-            to {
-                transform: translate(-50%, -50%) scale(8);
-                opacity: 0;
-            }
-        }
-        /* 动态粒子背景 (不影响交互) */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.5;
-        }
-        /* 两侧广告栏 */
-        .ad-sidebar {
-            position: fixed;
-            top: 80px;
-            bottom: 20px;
-            width: 200px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            overflow-y: auto;
-            padding: 10px;
-            background: transparent;
-            pointer-events: auto;
-        }
-        .ad-sidebar.left {
-            left: 10px;
-        }
-        .ad-sidebar.right {
-            right: 10px;
-        }
-        .ad-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            color: #1e293b;
-            font-size: 0.9rem;
-            word-break: break-word;
-            cursor: default;
-        }
-        .ad-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            background: white;
-        }
-        /* 移动端隐藏广告栏 */
-        @media (max-width: 1000px) {
-            .ad-sidebar {
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">🧑‍💻 智远创意|X-DevStudio <span>.dev</span></a>
+            <a href="#" class="logo">⌘ 智远创意 | X-DevStudio</a>
             <div class="nav-links">
-                <a href="#services">服务</a>
-                <a href="#showcase">案例</a>
-                <a href="#contact">联系</a>
-                <!-- 使用 data-doc 标识文档类型 -->
-                <a href="#privacy" class="doc-link" data-doc="privacy">隐私政策</a>
-                <a href="#terms" class="doc-link" data-doc="terms">服务条款</a>
-                <a href="#contract" class="doc-link" data-doc="contract">合同模板</a>
-                <a href="https://bbsky3099.github.io/X-DevStudio/" target="_blank" class="btn-outline btn">GitHub</a>
+                <a href="#services" class="hover-trigger">服务</a>
+                <a href="#showcase" class="hover-trigger">案例</a>
+                <a href="#contact" class="hover-trigger">联系</a>
+                <a href="#privacy" class="doc-link hover-trigger" data-doc="privacy">隐私政策</a>
+                <a href="#terms" class="doc-link hover-trigger" data-doc="terms">服务条款</a>
+                <a href="#contract" class="doc-link hover-trigger" data-doc="contract">合同模板</a>
+                <a href="https://bbsky3099.github.io/X-DevStudio/" target="_blank" class="btn-outline btn hover-trigger">GitHub</a>
             </div>
         </div>
     </nav>
 
-    <!-- 两侧广告栏容器 -->
+    <!-- 广告栏 -->
     <div class="ad-sidebar left" id="left-ads"></div>
     <div class="ad-sidebar right" id="right-ads"></div>
 
@@ -480,73 +39,114 @@
     <div id="click-effects"></div>
 
     <main class="container">
-        <!-- 首屏宣传 -->
-        <section class="hero">
-            <h1>从想法到交付<span class="highlight"> · 定制开发</span></h1>
+        <section class="hero reveal">
+            <h1>从想法到交付 <br><span class="highlight typewriter" id="typewriter-text"></span></h1>
             <p>独立承接 Web / 小程序 / 桌面应用，签订正式合同，分三期付款，源码完整交付。所有项目均遵守开源合规及隐私保护。</p>
             <div class="cta-buttons">
-                <a href="mailto:sky2099a@163.com?subject=项目询价%20-%20来自GitHub宣传页" class="btn">📧 发送邮件询价</a>
-                <a href="#services" class="btn-outline btn">↓ 浏览服务</a>
+                <a href="mailto:sky2099a@163.com?subject=项目询价%20-%20来自GitHub宣传页" class="btn hover-trigger">📧 发送邮件询价</a>
+                <a href="#services" class="btn-outline btn hover-trigger">↓ 探索服务</a>
             </div>
-            <div style="font-size:0.9rem; color:#6c757d; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center; color: cyan;">
                 <span>📄 MIT 许可证</span>
-                <span>🔒 零表单收集 · 隐私友好</span>
-                <span>⚖️ 标准合同模板</span>
+                <span>🔒 零表单收集</span>
+                <span>⚖️ 标准合同</span>
             </div>
         </section>
 
-        <!-- 服务项目 -->
-        <section id="services">
-            <h2 class="section-title">可承接的开发方向</h2>
+        <section id="services" class="reveal">
+            <h2 class="section-title reveal">可承接的开发方向</h2>
             <div class="services-grid">
-                <div class="service-card"><div class="service-icon">⚙️</div><h3>Web 全栈应用</h3><p>React / Vue / Node.js 企业级后台、官网、电商原型。响应式，符合W3C标准。</p></div>
-                <div class="service-card"><div class="service-icon">📱</div><h3>微信小程序 / H5</h3><p>原生小程序或Uniapp，包含支付、定位、用户授权，遵守平台隐私要求。</p></div>
-                <div class="service-card"><div class="service-icon">🖥️</div><h3>桌面工具 (Electron)</h3><p>跨平台桌面工具，自动更新，系统集成，数据本地化存储。</p></div>
-                <div class="service-card"><div class="service-icon">🐍</div><h3>Python 脚本/数据处理</h3><p>自动化脚本、爬虫（合法授权）、数据分析及可视化。</p></div>
-            </div>
-        </section>
-
-        <!-- 案例展示 -->
-        <section id="showcase" class="showcase">
-            <h2 class="section-title" style="margin-top: 0;">近期项目（示意）</h2>
-            <div class="showcase-item">
-                <div class="showcase-text">
-                    <span class="showcase-badge">已完成 · 合同签订</span>
-                    <h3>智能排班系统 (SaaS)</h3>
-                    <p>为中小餐饮企业开发的排班与考勤工具。前端Vue3 + TypeScript，后端Node.js + MySQL。源码交付，客户拥有完整知识产权。项目分三期：预付款30%，验收60%，售后期10%。</p>
-                    <p style="margin-top: 0.8rem;">🔧 技术栈: Vue3, Pinia, Express, JWT, 腾讯云部署</p>
+                <div class="service-card reveal hover-trigger" data-tilt>
+                    <div class="service-icon">⚙️</div>
+                    <h3>Web 全栈应用</h3>
+                    <p>React / Vue / Node.js 企业级后台、官网、电商原型。响应式，符合W3C标准。</p>
                 </div>
-                <div style="flex: 1 1 200px; background-color: #d9e2ef; border-radius: 1.5rem; height: 180px; display: flex; align-items: center; justify-content: center; color: #4b5563;">项目界面预览占位</div>
-            </div>
-            <div style="margin-top: 2.5rem;" class="showcase-item">
-                <div style="flex: 1 1 200px; background-color: #cbd5e1; border-radius: 1.5rem; height: 160px; display: flex; align-items: center; justify-content: center; color: #334155;">示意图标</div>
-                <div class="showcase-text">
-                    <span class="showcase-badge">进行中 · 二阶段</span>
-                    <h3>个人博客 & 内容分析工具</h3>
-                    <p>集成GitHub issues作为CMS，前台支持自定义主题，后台标签分析。使用Gatsby + Node。代码基于MIT许可证开源部分组件，客户私有部分闭包。明确许可证边界。</p>
+                <div class="service-card reveal hover-trigger" data-tilt>
+                    <div class="service-icon">📱</div>
+                    <h3>微信小程序 / H5</h3>
+                    <p>原生小程序或Uniapp，包含支付、定位、用户授权，遵守平台隐私要求。</p>
+                </div>
+                <div class="service-card reveal hover-trigger" data-tilt>
+                    <div class="service-icon">🖥️</div>
+                    <h3>桌面工具 (Electron)</h3>
+                    <p>跨平台桌面工具，自动更新，系统集成，数据本地化存储。</p>
+                </div>
+                <div class="service-card reveal hover-trigger" data-tilt>
+                    <div class="service-icon">🐍</div>
+                    <h3>Python 脚本/数据处理</h3>
+                    <p>自动化脚本、爬虫（合法授权）、数据分析及可视化。</p>
                 </div>
             </div>
         </section>
 
-        <!-- 联系区 -->
-        <section id="contact" class="contact-section">
-            <h2>📬 开启你的项目</h2>
-            <p style="max-width: 600px; margin: 0 auto; color:#475569;">所有合作均基于书面合同，明确交付范围、知识产权与付款节点。不使用网站表单收集信息，沟通通过邮件进行，确保数据最小化。</p>
+        <!-- 案例展示 - 丰富版 -->
+        <section id="showcase" class="reveal">
+            <h2 class="section-title reveal">精选案例</h2>
+            <div class="showcase reveal">
+                <div class="showcase-item">
+                    <div class="showcase-text">
+                        <span class="showcase-badge">✅ 已交付 · SaaS</span>
+                        <h3>智能排班管理系统</h3>
+                        <p>为连锁餐饮企业定制的排班与考勤 SaaS 平台。支持多门店管理、智能算法排班、实时数据看板。</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tech-tag">Vue3</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">JWT</span>
+                        </div>
+                    </div>
+                    <div class="showcase-visual">
+                        <div class="code-snippet">
+                            const schedule = await AI.optimize(staff);<br>
+                            return dashboard.render(schedule);
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-text">
+                        <span class="showcase-badge">🔄 进行中 · 二阶段</span>
+                        <h3>开发者博客 & 分析引擎</h3>
+                        <p>基于 GitHub Issues 的无头 CMS 博客系统，集成自定义主题引擎与内容数据分析后台。</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">GraphQL</span>
+                            <span class="tech-tag">Vercel</span>
+                        </div>
+                    </div>
+                    <div class="showcase-visual">
+                        <div class="code-snippet" style="color: #f472b6;">
+                            import { Analytics } from '@vercel/analytics';<br>
+                            export default function Blog() { ... }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section reveal">
+            <h2>📡 开启你的项目</h2>
+            <p style="max-width: 600px; margin: 0 auto; color:#b0c0ff;">所有合作均基于书面合同，明确交付范围、知识产权与付款节点。不使用网站表单收集信息，沟通通过邮件进行，确保数据最小化。</p>
             <div class="contact-actions">
-                <div class="contact-card"><span>📧</span><a href="mailto:sky2099a@163.com?subject=定制开发咨询%20-%20来自GitHub项目页" class="email-link">@联系我们</a></div>
-                <div class="contact-card"><span>🐙</span><a href="https://bbsky3099.github.io/X-DevStudio/" target="_blank" class="email-link gh-link">/X-DevStudio</a></div>
+                <a href="mailto:sky2099a@163.com?subject=定制开发咨询%20-%20来自GitHub项目页" class="contact-card hover-trigger">
+                    <span style="font-size:2rem;">📧</span>
+                    <span class="email-link">@联系我们</span>
+                </a>
+                <a href="https://bbsky3099.github.io/X-DevStudio/" target="_blank" class="contact-card hover-trigger">
+                    <span style="font-size:2rem;">🐙</span>
+                    <span class="email-link">/X-DevStudio</span>
+                </a>
             </div>
-            <p style="margin-top: 1.5rem; font-size: 0.95rem;">⏱️ 通常24小时内回复。可约线上会议详谈。</p>
+            <p style="margin-top: 2rem; color: cyan;">⏱️ 通常24小时内回复。可约线上会议详谈。</p>
         </section>
 
-        <!-- 底部合规链接 -->
-        <footer class="footer">
-            <div>© 2025 智远创意|X-DevStudio · 个人开发者。项目遵循 <a href="#license" class="doc-link" data-doc="license">MIT 许可证</a><span class="license-badge">开源代码</span></div>
+        <footer class="footer reveal">
+            <div>© 2025 智远创意 · 项目遵循 <a href="#license" class="doc-link hover-trigger" data-doc="license">MIT 许可证</a><span class="license-badge">开源代码</span></div>
             <div class="footer-links">
-                <a href="#privacy" class="doc-link" data-doc="privacy">隐私政策</a>
-                <a href="#terms" class="doc-link" data-doc="terms">服务条款</a>
-                <a href="#contract" class="doc-link" data-doc="contract">合同模板</a>
-                <a href="#readme" class="doc-link" data-doc="readme">项目说明</a>
+                <a href="#privacy" class="doc-link hover-trigger" data-doc="privacy">隐私政策</a>
+                <a href="#terms" class="doc-link hover-trigger" data-doc="terms">服务条款</a>
+                <a href="#contract" class="doc-link hover-trigger" data-doc="contract">合同模板</a>
+                <a href="#readme" class="doc-link hover-trigger" data-doc="readme">项目说明</a>
             </div>
         </footer>
     </main>
@@ -558,358 +158,10 @@
                 <h3 id="modalTitle">文档标题</h3>
                 <button class="modal-close" id="modalCloseBtn">&times;</button>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- 动态加载的内容将放在这里 -->
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-    <script>
-        (function() {
-            // 文档文件名映射 (data-doc 属性值 -> 实际 Markdown 文件)
-            const docFiles = {
-                license: 'LICENSE.md',
-                privacy: 'PRIVACY_POLICY.md',
-                terms: 'TERMS_OF_SERVICE.md',
-                contract: 'CONTRACT_TEMPLATE.md',
-                readme: 'README.md'      // 如果不存在，会显示404错误
-            };
-
-            // 友好标题映射
-            const docTitles = {
-                license: 'MIT 许可证',
-                privacy: '隐私政策',
-                terms: '服务条款',
-                contract: '合同模板',
-                readme: '项目说明'
-            };
-
-            const modal = document.getElementById('docModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalBody = document.getElementById('modalBody');
-            const closeBtn = document.getElementById('modalCloseBtn');
-
-            // 关闭模态框
-            function closeModal() {
-                modal.classList.remove('active');
-            }
-
-            // 打开模态框并加载文档
-            async function openModal(docKey) {
-                // 设置标题
-                modalTitle.textContent = docTitles[docKey] || '文档';
-                // 显示加载中
-                modalBody.innerHTML = '<pre>加载中……</pre>';
-                modal.classList.add('active');
-
-                // 获取文件名
-                const fileName = docFiles[docKey];
-                if (!fileName) {
-                    modalBody.innerHTML = '<pre class="error-message">错误：未找到对应的文档。</pre>';
-                    return;
-                }
-
-                try {
-                    const response = await fetch(fileName);
-                    if (!response.ok) {
-                        throw new Error(`无法加载文件 (HTTP ${response.status})`);
-                    }
-                    const text = await response.text();
-                    // 将内容放入 <pre> 中显示原始 Markdown
-                    modalBody.innerHTML = `<pre>${escapeHtml(text)}</pre>`;
-                } catch (error) {
-                    modalBody.innerHTML = `<pre class="error-message">加载失败：${error.message}\n请确认文件 ${fileName} 是否存在于项目根目录。</pre>`;
-                }
-            }
-
-            // 简单的转义函数，防止XSS
-            function escapeHtml(unsafe) {
-                return unsafe.replace(/[&<>"]/g, function(m) {
-                    if(m === '&') return '&amp;';
-                    if(m === '<') return '&lt;';
-                    if(m === '>') return '&gt;';
-                    if(m === '"') return '&quot;';
-                    return m;
-                });
-            }
-
-            // 为所有 .doc-link 绑定点击事件
-            document.querySelectorAll('.doc-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();  // 阻止锚点跳转
-                    const doc = link.getAttribute('data-doc');
-                    if (doc) {
-                        openModal(doc);
-                    }
-                });
-            });
-
-            // 关闭按钮
-            closeBtn.addEventListener('click', closeModal);
-            // 点击背景关闭
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
-            });
-            // ESC 关闭
-            window.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal.classList.contains('active')) {
-                    closeModal();
-                }
-            });
-
-            // 控制台友好提示
-            console.log("🔒 本网站无追踪器，不收集个人信息。沟通请使用邮件: sky2099a@163.com");
-
-            // ---------- 鼠标移动特效：三种科技感模式随机切换 ----------
-            const trailCanvas = document.getElementById('trail-canvas');
-            const ctx = trailCanvas.getContext('2d');
-            let width, height;
-            let particles = [];
-
-            // 特效模式: 0-粒子连线(蓝), 1-流光线条(紫), 2-闪烁星尘(彩色)
-            let effectMode = 0;
-            const modeNames = ['粒子连线', '流光线条', '闪烁星尘'];
-            let lastSwitch = performance.now();
-            const switchInterval = 8000; // 8秒切换一次
-
-            function resizeCanvas() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                trailCanvas.width = width;
-                trailCanvas.height = height;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            // 鼠标移动时添加粒子
-            let mouseX = 0, mouseY = 0;
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                // 限制粒子总数，避免过多
-                if (particles.length > 80) return;
-                // 根据当前模式生成粒子属性
-                for (let i = 0; i < 2; i++) {
-                    let color, size, speedFactor;
-                    const baseSpeed = 0.3;
-                    if (effectMode === 0) { // 粒子连线模式：蓝色系
-                        color = `rgba(30, 144, 255, ${0.6 + Math.random()*0.4})`; // 道奇蓝
-                        size = 4 + Math.random() * 6;
-                        speedFactor = 1;
-                    } else if (effectMode === 1) { // 流光线条模式：紫色系
-                        color = `rgba(138, 43, 226, ${0.7 + Math.random()*0.3})`; // 蓝紫色
-                        size = 5 + Math.random() * 8;
-                        speedFactor = 1.5; // 速度稍快，更有流动性
-                    } else { // 闪烁星尘模式：多彩
-                        const hue = Math.random() * 360;
-                        color = `hsla(${hue}, 80%, 60%, ${0.8})`;
-                        size = 3 + Math.random() * 10;
-                        speedFactor = 0.8;
-                    }
-                    particles.push({
-                        x: mouseX + (Math.random() - 0.5) * 30,
-                        y: mouseY + (Math.random() - 0.5) * 30,
-                        vx: (Math.random() - 0.5) * speedFactor,
-                        vy: (Math.random() - 0.5) * speedFactor,
-                        life: 1.0,
-                        size: size,
-                        color: color,
-                        mode: effectMode // 记录生成时的模式，便于绘制时特殊处理（可选）
-                    });
-                }
-            });
-
-            // 动画更新
-            function animateTrail(now) {
-                // 检查是否需要切换模式
-                if (now - lastSwitch > switchInterval) {
-                    effectMode = Math.floor(Math.random() * 3); // 0,1,2
-                    console.log(`✨ 特效模式切换为: ${modeNames[effectMode]}`);
-                    lastSwitch = now;
-                    // 切换模式时让现有粒子快速淡出（可选）
-                    for (let p of particles) {
-                        p.life *= 0.5; // 加速消失，让新效果更快呈现
-                    }
-                }
-
-                ctx.clearRect(0, 0, width, height);
-                // 设置阴影光晕，增强科技感
-                ctx.shadowColor = '#3b82f6';
-                ctx.shadowBlur = 10;
-
-                // 更新和绘制粒子
-                for (let i = particles.length - 1; i >= 0; i--) {
-                    const p = particles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.life -= 0.005; // 逐渐消失
-                    if (p.life <= 0) {
-                        particles.splice(i, 1);
-                        continue;
-                    }
-
-                    // 根据当前模式调整绘制样式（动态适应新模式）
-                    let drawColor = p.color;
-                    if (effectMode === 0) {
-                        // 模式0：蓝色调，可以稍微统一
-                        ctx.shadowColor = '#1e90ff';
-                    } else if (effectMode === 1) {
-                        ctx.shadowColor = '#8a2be2';
-                    } else {
-                        ctx.shadowColor = '#ff69b4'; // 粉色阴影，配合彩色
-                    }
-
-                    ctx.globalAlpha = p.life;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    // 额外绘制效果：模式1（流光线条）给粒子加上彗尾（小点连线）
-                    if (effectMode === 1) {
-                        // 简单模拟：画一条从前一帧到当前位置的线，但没有记录历史，改用粒子速度方向画短线
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p.x - p.vx * 5, p.y - p.vy * 5);
-                        ctx.strokeStyle = p.color;
-                        ctx.lineWidth = 2 * p.life;
-                        ctx.stroke();
-                    }
-
-                    // 模式2（闪烁星尘）额外绘制随机小点闪烁
-                    if (effectMode === 2) {
-                        if (Math.random() > 0.8) {
-                            ctx.fillStyle = 'white';
-                            ctx.globalAlpha = p.life * 0.8;
-                            ctx.beginPath();
-                            ctx.arc(p.x + (Math.random()-0.5)*10, p.y + (Math.random()-0.5)*10, 2, 0, 2*Math.PI);
-                            ctx.fill();
-                        }
-                    }
-                }
-
-                // 模式0额外绘制粒子之间的连线（科技感网状）
-                if (effectMode === 0) {
-                    ctx.strokeStyle = 'rgba(100, 180, 255, 0.3)';
-                    ctx.lineWidth = 1;
-                    for (let i = 0; i < particles.length; i++) {
-                        for (let j = i + 1; j < particles.length; j++) {
-                            const dx = particles[i].x - particles[j].x;
-                            const dy = particles[i].y - particles[j].y;
-                            const dist = Math.sqrt(dx*dx + dy*dy);
-                            if (dist < 80) {
-                                ctx.globalAlpha = (1 - dist/80) * 0.5;
-                                ctx.beginPath();
-                                ctx.moveTo(particles[i].x, particles[i].y);
-                                ctx.lineTo(particles[j].x, particles[j].y);
-                                ctx.stroke();
-                            }
-                        }
-                    }
-                }
-
-                requestAnimationFrame(animateTrail);
-            }
-            requestAnimationFrame(animateTrail);
-
-            // ---------- 鼠标点击特效 ----------
-            const clickContainer = document.getElementById('click-effects');
-            document.addEventListener('click', (e) => {
-                const ripple = document.createElement('div');
-                ripple.className = 'click-ripple';
-                ripple.style.left = e.clientX + 'px';
-                ripple.style.top = e.clientY + 'px';
-                ripple.style.width = '30px';
-                ripple.style.height = '30px';
-                ripple.style.background = 'rgba(59, 130, 246, 0.6)';
-                clickContainer.appendChild(ripple);
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-
-            // ---------- 背景粒子特效 (优雅动态) ----------
-            const particleCanvas = document.getElementById('particle-canvas');
-            const pCtx = particleCanvas.getContext('2d');
-            let pWidth, pHeight;
-            let bgParticles = [];
-
-            function resizeParticleCanvas() {
-                pWidth = window.innerWidth;
-                pHeight = window.innerHeight;
-                particleCanvas.width = pWidth;
-                particleCanvas.height = pHeight;
-                initBgParticles();
-            }
-            window.addEventListener('resize', resizeParticleCanvas);
-
-            function initBgParticles() {
-                bgParticles = [];
-                const count = Math.floor(pWidth * pHeight / 8000);
-                for (let i = 0; i < count; i++) {
-                    bgParticles.push({
-                        x: Math.random() * pWidth,
-                        y: Math.random() * pHeight,
-                        radius: Math.random() * 2 + 1,
-                        speedX: (Math.random() - 0.5) * 0.3,
-                        speedY: (Math.random() - 0.5) * 0.3,
-                        color: `rgba(59, 130, 246, ${Math.random() * 0.4 + 0.1})`
-                    });
-                }
-            }
-
-            function animateBgParticles() {
-                pCtx.clearRect(0, 0, pWidth, pHeight);
-                for (let p of bgParticles) {
-                    p.x += p.speedX;
-                    p.y += p.speedY;
-                    if (p.x < 0) p.x = pWidth;
-                    if (p.x > pWidth) p.x = 0;
-                    if (p.y < 0) p.y = pHeight;
-                    if (p.y > pHeight) p.y = 0;
-                    pCtx.beginPath();
-                    pCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    pCtx.fillStyle = p.color;
-                    pCtx.fill();
-                }
-                requestAnimationFrame(animateBgParticles);
-            }
-            resizeParticleCanvas();
-            animateBgParticles();
-
-            // ---------- 加载广告位内容 ----------
-            async function loadAds() {
-                try {
-                    const response = await fetch('ads.md');
-                    if (!response.ok) {
-                        console.warn('未找到 ads.md 文件，广告位将不显示内容。');
-                        return;
-                    }
-                    const text = await response.text();
-                    // 按行分割，过滤空行
-                    const lines = text.split('\n').map(line => line.trim()).filter(line => line !== '');
-                    const leftAd = document.getElementById('left-ads');
-                    const rightAd = document.getElementById('right-ads');
-                    // 清空原有内容（如果有）
-                    leftAd.innerHTML = '';
-                    rightAd.innerHTML = '';
-                    // 轮流放入左右两侧
-                    lines.forEach((line, index) => {
-                        const card = document.createElement('div');
-                        card.className = 'ad-card';
-                        card.textContent = line;
-                        if (index % 2 === 0) {
-                            leftAd.appendChild(card);
-                        } else {
-                            rightAd.appendChild(card);
-                        }
-                    });
-                } catch (error) {
-                    console.warn('加载广告失败:', error);
-                }
-            }
-            loadAds();
-        })();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
