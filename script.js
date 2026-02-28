@@ -175,7 +175,7 @@
             const p = trailParticles[i];
             p.x += p.vx;
             p.y += p.vy;
-            p.life -= 0.006;
+            p.life -= 0.05;
             if (p.life <= 0) { trailParticles.splice(i, 1); continue; }
             const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * p.life);
             gradient.addColorStop(0, `hsla(${p.hue}, 100%, 70%, 1)`);
@@ -263,24 +263,27 @@
     resizeParticle();
     animateBg();
 
-    // ========== 9. 加载广告 ==========
-    async function loadAds() {
-        try {
-            const response = await fetch('ads.md');
-            if (!response.ok) { console.warn('未找到 ads.md'); return; }
-            const text = await response.text();
-            const lines = text.split('\n').map(l => l.trim()).filter(l => l);
-            const leftAd = document.getElementById('left-ads');
-            const rightAd = document.getElementById('right-ads');
-            leftAd.innerHTML = ''; rightAd.innerHTML = '';
-            lines.forEach((line, idx) => {
-                const card = document.createElement('div');
-                card.className = 'ad-card';
-                card.textContent = line;
-                (idx % 2 === 0 ? leftAd : rightAd).appendChild(card);
-            });
-        } catch (error) { console.warn('广告加载失败', error); }
-    }
+// ========== 9. 加载广告（随机色调） ==========
+async function loadAds() {
+    try {
+        const response = await fetch('ads.md');
+        if (!response.ok) { console.warn('未找到 ads.md'); return; }
+        const text = await response.text();
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+        const leftAd = document.getElementById('left-ads');
+        const rightAd = document.getElementById('right-ads');
+        leftAd.innerHTML = ''; rightAd.innerHTML = '';
+        lines.forEach((line, idx) => {
+            const card = document.createElement('div');
+            card.className = 'ad-card';
+            // 随机色相 180-300 (蓝到紫)
+            const hue = Math.floor(Math.random() * 120) + 180; // 180~299
+            card.style.setProperty('--card-hue', hue);
+            card.textContent = line;
+            (idx % 2 === 0 ? leftAd : rightAd).appendChild(card);
+        });
+    } catch (error) { console.warn('广告加载失败', error); }
+}
     loadAds();
 
     console.log("🔒 本网站无追踪器，沟通请使用邮件: sky2099a@163.com");
