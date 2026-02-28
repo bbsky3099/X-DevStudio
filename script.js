@@ -139,7 +139,7 @@
     const ctx = trailCanvas.getContext('2d');
     let width, height;
     let trailParticles = [];
-    const MAX_TRAIL = 20; // 修改为20
+    const MAX_TRAIL = 10; // 修改为10
 
     function resizeTrail() {
         width = window.innerWidth;
@@ -263,7 +263,7 @@
     resizeParticle();
     animateBg();
 
-// ========== 9. 加载广告（随机色调） ==========
+// ========== 9. 加载广告（随机色调）并启用跑马灯 ==========
 async function loadAds() {
     try {
         const response = await fetch('ads.md');
@@ -273,6 +273,7 @@ async function loadAds() {
         const leftAd = document.getElementById('left-ads');
         const rightAd = document.getElementById('right-ads');
         leftAd.innerHTML = ''; rightAd.innerHTML = '';
+
         lines.forEach((line, idx) => {
             const card = document.createElement('div');
             card.className = 'ad-card';
@@ -282,7 +283,61 @@ async function loadAds() {
             card.textContent = line;
             (idx % 2 === 0 ? leftAd : rightAd).appendChild(card);
         });
+
+        // 为左右侧边栏分别初始化跑马灯
+        initMarquee(leftAd);
+        initMarquee(rightAd);
     } catch (error) { console.warn('广告加载失败', error); }
+}
+
+// 初始化垂直跑马灯（自动滚动）
+function initMarquee(container) {
+    const cards = container.children;
+    if (cards.length <= 5) return; // 不超过5个不启用
+
+    let currentIndex = 0;
+    let timer = null;
+    const scrollDelay = 3000; // 3秒滚动一次
+
+    // 计算并滚动到指定索引的卡片
+    const scrollToIndex = (index) => {
+        if (index >= cards.length) index = 0; // 循环
+        const targetCard = cards[index];
+        container.scrollTo({
+            top: targetCard.offsetTop - container.offsetTop,
+            behavior: 'smooth'
+        });
+        currentIndex = index;
+    };
+
+    // 启动自动滚动
+    const startMarquee = () => {
+        if (timer) clearInterval(timer);
+        timer = setInterval(() => {
+            let nextIndex = currentIndex + 1;
+            if (nextIndex >= cards.length) nextIndex = 0;
+            scrollToIndex(nextIndex);
+        }, scrollDelay);
+    };
+
+    // 暂停滚动
+    const stopMarquee = () => {
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        }
+    };
+
+    // 绑定鼠标事件
+    container.addEventListener('mouseenter', stopMarquee);
+    container.addEventListener('mouseleave', startMarquee);
+
+    // 初始化滚动到第一个卡片（确保起始位置正确）
+    setTimeout(() => {
+        container.scrollTo({ top: 0, behavior: 'auto' });
+        currentIndex = 0;
+        startMarquee();
+    }, 100);
 }
     loadAds();
 
