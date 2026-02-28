@@ -627,7 +627,7 @@ body:hover .cursor-outline.hovered {
     z-index: -1;
 }
 
-/* 广告栏 科技卡片 - 等分布局 */
+/* 广告栏 科技卡片 - 内容自适应高度，整体滚动 */
 .ad-sidebar {
     position: fixed;
     top: 100px;
@@ -636,9 +636,10 @@ body:hover .cursor-outline.hovered {
     z-index: 50;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: auto;  /* 整体滚动 */
     padding: 10px;
     pointer-events: auto;
+    gap: 15px;         /* 卡片间距 */
 }
 
 .ad-sidebar.left { left: 10px; }
@@ -646,9 +647,7 @@ body:hover .cursor-outline.hovered {
 
 .ad-card {
     --card-hue: 180; /* 默认值，JS会覆盖 */
-    flex: 1 1 0;
-    min-height: 0;
-    margin-bottom: 15px;
+    flex-shrink: 0;  /* 防止压缩 */
     background: rgba(10, 20, 40, 0.7);
     backdrop-filter: blur(10px);
     border: 1px solid hsla(var(--card-hue), 80%, 60%, 0.3);
@@ -661,27 +660,8 @@ body:hover .cursor-outline.hovered {
     font-size: 0.9rem;
     word-break: break-word;
     position: relative;
-    overflow-y: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    /* 移除 overflow-y，让内容自然撑高 */
     animation: cardFadeIn 0.5s ease-out;
-}
-
-/* 自定义滚动条 */
-.ad-card::-webkit-scrollbar {
-    width: 4px;
-}
-.ad-card::-webkit-scrollbar-track {
-    background: transparent;
-}
-.ad-card::-webkit-scrollbar-thumb {
-    background: hsla(var(--card-hue), 80%, 60%, 0.3);
-    border-radius: 2px;
-}
-.ad-card::-webkit-scrollbar-thumb:hover {
-    background: hsla(var(--card-hue), 80%, 70%, 0.5);
 }
 
 .ad-card::after {
@@ -707,10 +687,6 @@ body:hover .cursor-outline.hovered {
 
 .ad-card:hover::after {
     opacity: 1;
-}
-
-.ad-card:last-child {
-    margin-bottom: 0;
 }
 
 @keyframes cardFadeIn {
